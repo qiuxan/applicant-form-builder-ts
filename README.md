@@ -1,0 +1,67 @@
+# Applicant Form Builder
+
+A React application for capturing information about one or more applicants.
+
+## Project Requirements
+
+This application is built to meet the following specifications:
+
+### Form Functionality
+- Capture applicant information including:
+- First name
+- Last name
+- Mobile number
+- Email
+- Allow users to add and remove applicants
+- Maintain at least one applicant at all times
+- Include a checkbox to nominate the primary applicant
+- Ensure there is always one, and only one, primary applicant
+
+## Tech Stack
+
+- React
+- Vite
+- TypeScript
+
+## Development
+
+### Commit Message Format
+
+This project uses Conventional Commits to maintain a clear and standardized commit history. All commits must follow this format:
+
+```
+<type>: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+#### Allowed Types:
+- **feat**: A new feature
+- **fix**: A bug fix
+- **docs**: Documentation only changes
+- **style**: Changes that do not affect the meaning of the code (formatting, whitespace, etc.)
+- **refactor**: A code change that neither fixes a bug nor adds a feature
+- **perf**: A code change that improves performance
+- **test**: Adding missing tests or correcting existing tests
+- **build**: Changes that affect the build system or external dependencies
+- **ci**: Changes to CI configuration files and scripts
+- **chore**: Other changes that don't modify src or test files
+- **revert**: Reverts a previous commit
+
+#### Examples:
+```bash
+# Good commits
+git commit -m "feat: add user registration form"
+git commit -m "fix: resolve validation error on email field"
+git commit -m "docs: update README with setup instructions"
+git commit -m "refactor: simplify form state management"
+
+# Bad commits (will be rejected)
+git commit -m "updated files"           # Missing type
+git commit -m "FEAT: add feature"       # Type must be lowercase
+git commit -m "feat:missing space"      # Missing space after colon
+```
+
+Commits not following this standard will be automatically rejected by the pre-commit hook.
