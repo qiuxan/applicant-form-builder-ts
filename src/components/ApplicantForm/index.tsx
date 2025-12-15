@@ -64,7 +64,7 @@ const ApplicantForm = ({
             <Form
                 onSubmit={onSubmit}
                 validate={validate}
-                render={({ handleSubmit, submitting }) => (
+                render={({ handleSubmit, submitting, form }) => (
                     <form className="applicant-form" onSubmit={handleSubmit}>
                         <FormField 
                             name="firstName"
@@ -98,9 +98,24 @@ const ApplicantForm = ({
                             onFieldFocus={onFieldFocus}
                         />
                         
-                        <button type="submit" className="submit-button" disabled={submitting}>
-                            Add
-                        </button>
+                        <div style={{ display: 'flex', gap: '1rem' }}>
+                            <button type="submit" className="submit-button" disabled={submitting}>
+                                Add
+                            </button>
+                            <button 
+                                type="button" 
+                                className="clear-button"
+                                onClick={() => {
+                                    form.reset();
+                                    form.resetFieldState('firstName');
+                                    form.resetFieldState('lastName');
+                                    form.resetFieldState('mobile');
+                                    form.resetFieldState('email');
+                                }}
+                            >
+                                Clear
+                            </button>
+                        </div>
                     </form>
                 )}
             />

@@ -413,3 +413,56 @@ when a disabled remove btn being hover. a little message will float up saying 'C
 - **Better Organization**: Follows component-per-file pattern
 - **Easier Testing**: Component can be tested independently
 - **Cleaner Imports**: ApplicantForm file is more focused
+
+---
+
+## Date: December 15, 2025
+
+### Prompt 14:
+"Add clear the form btn next to the Add btn"
+
+### Changes Made:
+1. Updated `ApplicantForm/index.tsx`:
+   - Added `form` to render props destructuring to access form API
+   - Wrapped buttons in a div with flexbox layout (display: flex, gap: 1rem)
+   - Added Clear button with type="button" to prevent form submission
+   - Clear button calls `form.reset()` onClick to reset form values
+
+2. Updated `ApplicantForm.css`:
+   - Added `.clear-button` styling with gray gradient (matching secondary action pattern)
+   - Gray gradient: linear-gradient(135deg, #6c757d 0%, #495057 100%)
+   - Same dimensions and hover effects as submit button
+   - Consistent animation: translateY(-2px) on hover with shadow
+
+### UI Features:
+- **Button Layout**: Side-by-side buttons with 1rem gap
+- **Clear Functionality**: Resets all form fields to empty state
+- **Consistent Styling**: Matches form's design language with different color
+- **Type Safety**: type="button" prevents accidental form submission
+
+---
+
+## Date: December 15, 2025
+
+### Prompt 15:
+"clear form cannot activate the validation error"
+
+**Issue**: Validation errors (First name is required, Last name is required, etc.) were showing up after clicking Clear button.
+
+### Changes Made:
+1. Updated Clear button onClick handler in `ApplicantForm/index.tsx`:
+   - Added `form.resetFieldState('firstName')` after form.reset()
+   - Added `form.resetFieldState('lastName')` after form.reset()
+   - Added `form.resetFieldState('mobile')` after form.reset()
+   - Added `form.resetFieldState('email')` after form.reset()
+
+### Technical Solution:
+- **Root Cause**: `form.reset()` clears values but validation can still run on empty fields
+- **Fix**: `form.resetFieldState()` clears touched state and validation errors for each field
+- **Result**: No validation errors display after clearing the form
+- **User Experience**: Clean slate when clicking Clear, no red error messages
+
+### Form State Management:
+- `form.reset()` - Resets values to initial state (empty)
+- `form.resetFieldState(fieldName)` - Clears touched, error, and modified states per field
+- Combined approach ensures complete form reset without triggering validation display
