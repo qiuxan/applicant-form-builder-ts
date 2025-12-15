@@ -532,3 +532,38 @@ Split the single `applicantHandlers.ts` file into individual files:
 - **Easy Navigation**: Function name matches file name for easy discovery
 - **Granular Imports**: Can import specific functions without unused code
 
+---
+
+### Prompt 18:
+"store errorMessage into an individual component under components folder"
+
+### Changes Made:
+1. Created `src/components/ErrorMessage/index.tsx`:
+   - New component to display error messages
+   - Takes `message` prop of type string
+   - Returns null if message is empty (conditional rendering)
+   - Contains inline styles for error display (red background, border, padding)
+
+2. Updated `src/App.tsx`:
+   - Added import: `import ErrorMessage from './components/ErrorMessage'`
+   - Replaced inline JSX error display with `<ErrorMessage message={errorMessage} />`
+   - Removed conditional rendering logic from App component
+
+### Component Structure:
+```tsx
+interface ErrorMessageProps {
+  message: string;
+}
+
+const ErrorMessage = ({ message }: ErrorMessageProps) => {
+  if (!message) return null;
+  return <div style={{...}}>>{message}</div>;
+};
+```
+
+### Benefits:
+- **Reusability**: ErrorMessage component can be used in other parts of the app
+- **Separation of Concerns**: Error display logic separated from main App component
+- **Cleaner Code**: App.tsx is more readable without inline styling
+- **Type Safety**: Props properly typed with TypeScript interface
+
