@@ -1,5 +1,6 @@
 import './ApplicantForm.css';
-import { Form, Field } from 'react-final-form';
+import { Form } from 'react-final-form';
+import FormField from './FormField';
 
 interface FormValues {
     firstName: string;
@@ -65,89 +66,37 @@ const ApplicantForm = ({
                 validate={validate}
                 render={({ handleSubmit, submitting }) => (
                     <form className="applicant-form" onSubmit={handleSubmit}>
-                        <Field name="firstName">
-                            {({ input, meta }) => (
-                                <div className="form-field">
-                                    <label htmlFor="firstName">First Name</label>
-                                    <input 
-                                        {...input}
-                                        type="text" 
-                                        id="firstName"
-                                        placeholder="Enter first name"
-                                        onFocus={(e) => {
-                                            input.onFocus(e);
-                                            onFieldFocus?.();
-                                        }}
-                                    />
-                                    {meta.error && meta.touched && (
-                                        <span className="error-message">{meta.error}</span>
-                                    )}
-                                </div>
-                            )}
-                        </Field>
+                        <FormField 
+                            name="firstName"
+                            label="First Name"
+                            type="text"
+                            placeholder="Enter first name"
+                            onFieldFocus={onFieldFocus}
+                        />
                         
-                        <Field name="lastName">
-                            {({ input, meta }) => (
-                                <div className="form-field">
-                                    <label htmlFor="lastName">Last Name</label>
-                                    <input 
-                                        {...input}
-                                        type="text" 
-                                        id="lastName"
-                                        placeholder="Enter last name"
-                                        onFocus={(e) => {
-                                            input.onFocus(e);
-                                            onFieldFocus?.();
-                                        }}
-                                    />
-                                    {meta.error && meta.touched && (
-                                        <span className="error-message">{meta.error}</span>
-                                    )}
-                                </div>
-                            )}
-                        </Field>
+                        <FormField 
+                            name="lastName"
+                            label="Last Name"
+                            type="text"
+                            placeholder="Enter last name"
+                            onFieldFocus={onFieldFocus}
+                        />
                         
-                        <Field name="mobile">
-                            {({ input, meta }) => (
-                                <div className="form-field">
-                                    <label htmlFor="mobile">Mobile Number</label>
-                                    <input 
-                                        {...input}
-                                        type="tel" 
-                                        id="mobile"
-                                        placeholder="Enter mobile number"
-                                        onFocus={(e) => {
-                                            input.onFocus(e);
-                                            onFieldFocus?.();
-                                        }}
-                                    />
-                                    {meta.error && meta.touched && (
-                                        <span className="error-message">{meta.error}</span>
-                                    )}
-                                </div>
-                            )}
-                        </Field>
+                        <FormField 
+                            name="mobile"
+                            label="Mobile Number"
+                            type="tel"
+                            placeholder="Enter mobile number"
+                            onFieldFocus={onFieldFocus}
+                        />
                         
-                        <Field name="email">
-                            {({ input, meta }) => (
-                                <div className="form-field">
-                                    <label htmlFor="email">Email</label>
-                                    <input 
-                                        {...input}
-                                        type="email" 
-                                        id="email"
-                                        placeholder="Enter email address"
-                                        onFocus={(e) => {
-                                            input.onFocus(e);
-                                            onFieldFocus?.();
-                                        }}
-                                    />
-                                    {meta.error && meta.touched && (
-                                        <span className="error-message">{meta.error}</span>
-                                    )}
-                                </div>
-                            )}
-                        </Field>
+                        <FormField 
+                            name="email"
+                            label="Email"
+                            type="email"
+                            placeholder="Enter email address"
+                            onFieldFocus={onFieldFocus}
+                        />
                         
                         <button type="submit" className="submit-button" disabled={submitting}>
                             Add

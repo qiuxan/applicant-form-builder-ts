@@ -360,3 +360,56 @@ when a disabled remove btn being hover. a little message will float up saying 'C
 - **Tooltip Arrow**: Points down to the button for clear association
 - **Smooth Animation**: Fade-in effect for professional appearance
 - **Functional Prevention**: onClick handler checks isPrimary before executing
+
+---
+
+## Date: December 15, 2025
+
+### Prompt 12:
+"the 4 Field s can be a hight-level component so that the code can be dryer"
+
+### Changes Made:
+1. Created reusable `FormField` component in `ApplicantForm/index.tsx`:
+   - Defined `FormFieldProps` interface with name, label, type, placeholder, and optional onFieldFocus
+   - Extracted repetitive Field rendering logic into single component
+   - Component handles input rendering, label, error display, and focus events
+   - Reduced code duplication from ~100 lines to ~40 lines for form fields
+
+2. Refactored form to use `FormField` component:
+   - Replaced four separate Field implementations with FormField calls
+   - Each field now uses consistent props: name, label, type, placeholder, onFieldFocus
+   - Maintained all existing functionality (validation, error display, focus clearing)
+
+### Code Improvements:
+- **DRY Principle**: Eliminated repetitive code for form fields
+- **Maintainability**: Changes to field rendering now only need to be made in one place
+- **Consistency**: All fields render identically with same behavior
+- **Type Safety**: Props interface ensures correct usage of component
+
+---
+
+## Date: December 15, 2025
+
+### Prompt 13:
+"make it an individual file called FormField/index.tsx under ApplicantForm folder"
+
+### Changes Made:
+1. Created new file `ApplicantForm/FormField/index.tsx`:
+   - Moved FormField component to separate file
+   - Exported FormField as default export
+   - Imported Field from react-final-form in new file
+   - Changed name prop type from `keyof FormValues` to `string` for flexibility
+
+2. Updated `ApplicantForm/index.tsx`:
+   - Removed FormField component definition
+   - Removed FormFieldProps interface
+   - Added import: `import FormField from './FormField'`
+   - Removed Field import from react-final-form (no longer needed)
+   - Form now uses imported FormField component
+
+### Project Structure Benefits:
+- **Separation of Concerns**: FormField has its own module
+- **Reusability**: Can be imported by other forms if needed
+- **Better Organization**: Follows component-per-file pattern
+- **Easier Testing**: Component can be tested independently
+- **Cleaner Imports**: ApplicantForm file is more focused
