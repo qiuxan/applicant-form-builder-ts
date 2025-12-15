@@ -110,3 +110,67 @@ Call it in App.tsx and passing in an example data of an array of one Applicant o
 - Gradient themed header and buttons
 - Smooth hover transitions
 - Remove button placeholder for future functionality
+
+---
+
+## Date: December 15, 2025
+
+### Prompt 4:
+"Block the default submit action of the form.
+
+Use react-final-form to handle the form varify and error message"
+
+### Changes Made:
+1. Installed dependencies:
+   - `final-form`
+   - `react-final-form`
+
+2. Updated `ApplicantForm/index.tsx`:
+   - Imported `Form` and `Field` from react-final-form
+   - Created `FormValues` interface for type safety
+   - Implemented `validate` function with validation rules:
+     - Required field validation for all fields
+     - Mobile number format validation (accepts digits, spaces, hyphens, parentheses, and + prefix)
+     - Email format validation (regex pattern)
+   - Wrapped form with react-final-form's `Form` component
+   - Converted all inputs to `Field` components
+   - Added `onSubmit` handler that prevents default and logs form values
+   - Added error message display below each field (shown when field is touched and has error)
+   - Added placeholder text to all input fields
+   - Disabled submit button while form is submitting
+
+3. Updated `ApplicantForm.css`:
+   - Added `.error-message` styling with red color (#ff6b6b)
+   - Set error message font size to 0.875rem
+   - Added margin and font weight for better visibility
+
+### Form Validation Rules:
+- **First Name**: Required
+- **Last Name**: Required
+- **Mobile Number**: Required, must match phone number pattern
+- **Email**: Required, must be valid email format
+- Errors display only after field is touched
+- Submit button disabled during submission
+
+---
+
+## Date: December 15, 2025
+
+### Prompt 5:
+"make the mobile varify follow the australia mobile rule"
+
+### Changes Made:
+1. Updated `ApplicantForm/index.tsx` mobile validation:
+   - Modified validation logic to enforce Australian mobile number format
+   - Accepts two formats:
+     - `04XX XXX XXX` (10 digits starting with 04)
+     - `+61 4XX XXX XXX` (+614 followed by 8 digits, 11 total)
+   - Strips all non-digit characters before validation
+   - Allows spaces, hyphens, and parentheses in input for user-friendly formatting
+   - Shows specific error message: "Invalid Australian mobile number. Must start with 04 or +614"
+
+### Australian Mobile Number Rules:
+- Must start with `04` (domestic format) or `+614` (international format)
+- Domestic: 10 digits total (e.g., 0412 345 678, 0423-456-789)
+- International: 11 digits total with country code (e.g., +61 412 345 678)
+- Formatting characters (spaces, hyphens, parentheses) are allowed but ignored during validation

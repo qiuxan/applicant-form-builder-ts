@@ -43,6 +43,13 @@
     border-color: #b0b0b0;
 }
 
+.error-message {
+    color: #ff6b6b;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    font-weight: 500;
+}
+
 .submit-button {
     padding: 0.875rem 2rem;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
