@@ -466,3 +466,69 @@ when a disabled remove btn being hover. a little message will float up saying 'C
 - `form.reset()` - Resets values to initial state (empty)
 - `form.resetFieldState(fieldName)` - Clears touched, error, and modified states per field
 - Combined approach ensures complete form reset without triggering validation display
+
+---
+
+## Date: December 16, 2025
+
+### Prompt 16:
+"move functions to src/utils/ folder and use src/utils/index.ts to export it"
+
+### Changes Made:
+1. Created `src/utils/` folder structure with individual function files:
+   - `handleAddApplicant.ts` - Validates uniqueness (email/mobile) and adds applicant with UUID
+   - `handleRemoveApplicant.ts` - Removes applicant by ID
+   - `handleSetPrimary.ts` - Sets primary applicant by swapping isPrimary flag
+   - `clearError.ts` - Clears error message state
+
+2. Created `src/utils/index.ts`:
+   - Centralized export point for all utility functions
+   - Exports: `handleAddApplicant`, `handleRemoveApplicant`, `handleSetPrimary`, `clearError`
+
+3. Updated `src/App.tsx`:
+   - Changed import from local functions to `import { ... } from './utils'`
+   - Updated function calls to pass required parameters (applicants, setApplicants, setErrorMessage)
+   - Wrapped handlers in arrow functions for props: `onRemove={(id) => handleRemoveApplicant(id, applicants, setApplicants)}`
+
+### Architecture Benefits:
+- **Separation of Concerns**: Business logic separated from UI component
+- **Reusability**: Functions can be imported and used in other components
+- **Testability**: Utility functions can be unit tested independently
+- **Maintainability**: Centralized location for all applicant-related business logic
+- **Type Safety**: All functions properly typed with Applicant interface
+
+---
+
+### Prompt 17:
+"Each function will be one file"
+
+### Changes Made:
+Split the single `applicantHandlers.ts` file into individual files:
+
+1. **`src/utils/handleAddApplicant.ts`**:
+   - Contains add applicant logic with email/mobile uniqueness validation
+   - Generates UUID for new applicants
+   - Sets isPrimary flag for first applicant
+
+2. **`src/utils/handleRemoveApplicant.ts`**:
+   - Contains remove applicant logic
+   - Filters applicants array by ID
+
+3. **`src/utils/handleSetPrimary.ts`**:
+   - Contains set primary logic
+   - Maps through applicants and updates isPrimary flag
+
+4. **`src/utils/clearError.ts`**:
+   - Contains clear error message logic
+   - Simple setter wrapper
+
+5. Updated `src/utils/index.ts`:
+   - Changed from single file export to individual file exports
+   - `export { handleAddApplicant } from './handleAddApplicant';` pattern
+
+### Code Organization:
+- **One Function Per File**: Each file contains exactly one exported function
+- **Single Responsibility**: Each file has a single, well-defined purpose
+- **Easy Navigation**: Function name matches file name for easy discovery
+- **Granular Imports**: Can import specific functions without unused code
+
