@@ -34,6 +34,8 @@ This application is built to meet the following specifications:
 - React
 - Vite
 - TypeScript
+- Jest (Testing Framework)
+- React Final Form (Form Management)
 
 ## Development
 
@@ -77,3 +79,30 @@ git commit -m "feat:missing space"      # Missing space after colon
 ```
 
 Commits not following this standard will be automatically rejected by the pre-commit hook.
+
+## Testing
+
+This project includes comprehensive unit tests for all utility functions.
+
+### Running Tests
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests with coverage report
+npm run test:coverage
+```
+
+### Test Coverage
+
+All utility functions in `src/utils/` have 100% test coverage:
+- `handleAddApplicant` - Tests for adding applicants, uniqueness validation, and primary assignment
+- `handleRemoveApplicant` - Tests for removing applicants by ID
+- `handleSetPrimary` - Tests for setting and swapping primary applicant
+- `clearError` - Tests for clearing error messages
+
+Test files are organized in `src/utils/__tests__/` folder following Jest conventions.

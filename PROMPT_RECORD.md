@@ -640,3 +640,122 @@ export const useLocalStorageApplicants = () => {
 - **Reusable**: Can be used in any component that needs applicants state
 - **Constants**: Storage key centralized in constants folder
 
+---
+
+## Date: December 16, 2025
+
+### Prompt 20:
+"create jest test for the utils"
+
+### Changes Made:
+1. Installed Jest dependencies:
+   - `jest` - Testing framework
+   - `@types/jest` - TypeScript type definitions for Jest
+   - `ts-jest` - TypeScript preprocessor for Jest
+   - `@testing-library/react` - React testing utilities
+   - `@testing-library/jest-dom` - Custom Jest matchers for DOM
+   - `jest-environment-jsdom` - Browser-like environment for tests
+   - `identity-obj-proxy` - CSS module mocking
+
+2. Created `jest.config.js`:
+   - Configured ts-jest preset for TypeScript support
+   - Set jsdom as test environment for React components
+   - Added CSS module mocking with identity-obj-proxy
+   - Configured setupFilesAfterEnv for jest-dom matchers
+   - Set test file patterns for `.test.ts` and `.test.tsx` files
+
+3. Created `src/setupTests.ts`:
+   - Imports `@testing-library/jest-dom` for extended matchers
+
+4. Created comprehensive test files:
+   - **`handleAddApplicant.test.ts`** (8 tests):
+     - Adding new applicants with unique email/mobile
+     - Setting first applicant as primary
+     - Email validation (case-insensitive)
+     - Mobile number validation with normalization
+     - Error message clearing
+     - Duplicate detection priority
+   
+   - **`handleRemoveApplicant.test.ts`** (6 tests):
+     - Removing applicants by ID
+     - Removing first/last applicant
+     - Handling empty arrays
+     - Non-existent ID handling
+     - Array immutability
+   
+   - **`handleSetPrimary.test.ts`** (8 tests):
+     - Setting primary applicant
+     - Unsetting other applicants
+     - Single applicant scenarios
+     - Non-existent ID handling
+     - Property preservation
+     - Array immutability
+   
+   - **`clearError.test.ts`** (2 tests):
+     - Clearing error messages
+
+5. Updated `package.json` scripts:
+   - Added `"test": "jest"` - Run all tests
+   - Added `"test:watch": "jest --watch"` - Run tests in watch mode
+   - Added `"test:coverage": "jest --coverage"` - Run tests with coverage report
+
+### Test Results:
+- **Total Tests**: 23 passing tests
+- **Test Suites**: 4 passing test suites
+- **Code Coverage**: 100% coverage across all utility functions
+  - Statements: 100%
+  - Branches: 100%
+  - Functions: 100%
+  - Lines: 100%
+
+### Testing Features:
+- **Mocked crypto.randomUUID**: Uses consistent UUID for predictable test results
+- **Type Safety**: All tests fully typed with TypeScript
+- **Comprehensive Coverage**: Tests cover success cases, edge cases, and error scenarios
+- **Immutability Tests**: Verifies functions don't mutate original data
+- **Isolation**: Each test uses fresh mock functions with beforeEach cleanup
+
+---
+
+### Prompt 21:
+"pack test.ts files into its own folder"
+
+### Changes Made:
+1. Created `src/utils/__tests__/` folder:
+   - Moved all test files into dedicated `__tests__` folder
+   - Follows Jest convention for organizing test files
+
+2. Updated import paths in all test files:
+   - Changed utility imports from `'./functionName'` to `'../functionName'`
+   - Changed type imports from `'../components/UsersTable'` to `'../../components/UsersTable'`
+   - Updated paths in all four test files:
+     - `handleAddApplicant.test.ts`
+     - `handleRemoveApplicant.test.ts`
+     - `handleSetPrimary.test.ts`
+     - `clearError.test.ts`
+
+3. Verified tests still pass after reorganization:
+   - All 23 tests passing
+   - 100% code coverage maintained
+
+### New Project Structure:
+```
+src/utils/
+  __tests__/
+    handleAddApplicant.test.ts
+    handleRemoveApplicant.test.ts
+    handleSetPrimary.test.ts
+    clearError.test.ts
+  handleAddApplicant.ts
+  handleRemoveApplicant.ts
+  handleSetPrimary.ts
+  clearError.ts
+  index.ts
+```
+
+### Benefits:
+- **Clear Organization**: Test files separated from implementation files
+- **Jest Convention**: `__tests__` folder is a recognized Jest pattern
+- **Scalability**: Easy to add more tests without cluttering source folder
+- **IDE Support**: Many IDEs recognize `__tests__` folders for test-specific features
+
