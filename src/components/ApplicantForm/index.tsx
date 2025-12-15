@@ -54,7 +54,6 @@ const ApplicantForm = ({
     onFieldFocus?: () => void;
 }) => {
     const onSubmit = (values: FormValues) => {
-        console.log('Form submitted:', values);
         onAddApplicant(values);
         // Handle form submission here
     };

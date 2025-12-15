@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import './App.css'
 import ApplicantForm from './components/ApplicantForm'
-import UsersTable, { type Applicant } from './components/UsersTable'
+import UsersTable from './components/UsersTable'
 import ErrorMessage from './components/ErrorMessage'
 import { handleAddApplicant, handleRemoveApplicant, handleSetPrimary, clearError } from './utils'
+import { useLocalStorageApplicants } from './hooks/useLocalStorageApplicants'
 
 function App() {
 
-  const [applicants, setApplicants] = useState<Applicant[]>([]);
+  const [applicants, setApplicants] = useLocalStorageApplicants();
   const [errorMessage, setErrorMessage] = useState<string>('');
 
   return (

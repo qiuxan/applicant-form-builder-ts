@@ -567,3 +567,76 @@ const ErrorMessage = ({ message }: ErrorMessageProps) => {
 - **Cleaner Code**: App.tsx is more readable without inline styling
 - **Type Safety**: Props properly typed with TypeScript interface
 
+---
+
+### Prompt 19:
+"use localstorage to store the applicants state. 
+
+when loading if localstorage applicants data exist use it as default state value;
+
+whenever state applicants change update the localstorage using useEffect
+
+pack these actions into an customised hook under src/hooks"
+
+### Changes Made:
+1. Created `src/hooks/useLocalStorageApplicants.ts`:
+   - Custom React hook that manages applicants state with localStorage persistence
+   - Uses lazy initialization in useState to load from localStorage on mount
+   - Retrieves data from localStorage using key 'applicants'
+   - Parses JSON data if it exists, otherwise returns empty array
+   - Includes try-catch error handling for localStorage operations
+   - Returns tuple: `[applicants, setApplicants]` with `as const` for type inference
+
+2. Implemented `useEffect` for automatic persistence:
+   - Watches `applicants` state for changes
+   - Automatically saves to localStorage on every state update
+   - Serializes applicants array to JSON before storing
+   - Includes error handling for storage failures
+
+3. Updated `src/App.tsx`:
+   - Added import: `import { useLocalStorageApplicants } from './hooks/useLocalStorageApplicants'`
+   - Replaced `useState<Applicant[]>([])` with `useLocalStorageApplicants()`
+   - Removed unused `Applicant` type import (no longer needed)
+
+4. Created `src/constants/index.ts`:
+   - Exported `APPLICANTS_STORAGE_KEY = 'applicants'`
+   - Centralized storage key constant for reusability
+
+5. Updated hook to use constant:
+   - Imported `APPLICANTS_STORAGE_KEY` from constants
+   - Used constant instead of hardcoded string
+
+### Hook Implementation:
+```tsx
+export const useLocalStorageApplicants = () => {
+  const [applicants, setApplicants] = useState<Applicant[]>(() => {
+    try {
+      const storedData = localStorage.getItem(APPLICANTS_STORAGE_KEY);
+      if (storedData) return JSON.parse(storedData);
+    } catch (error) {
+      console.error('Error loading applicants from localStorage:', error);
+    }
+    return [];
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(APPLICANTS_STORAGE_KEY, JSON.stringify(applicants));
+    } catch (error) {
+      console.error('Error saving applicants to localStorage:', error);
+    }
+  }, [applicants]);
+
+  return [applicants, setApplicants] as const;
+};
+```
+
+### Features:
+- **Persistent State**: Applicants survive page refreshes
+- **Lazy Initialization**: Only reads localStorage once on mount
+- **Automatic Sync**: Every state change triggers localStorage update
+- **Error Handling**: Gracefully handles localStorage failures (quota exceeded, disabled, etc.)
+- **Type Safety**: Hook returns properly typed tuple
+- **Reusable**: Can be used in any component that needs applicants state
+- **Constants**: Storage key centralized in constants folder
+
