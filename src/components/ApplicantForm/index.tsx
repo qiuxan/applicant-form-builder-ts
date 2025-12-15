@@ -44,7 +44,7 @@ const ApplicantForm = () => {
                     />
                 </div>
                 
-                <button type="submit" className="submit-button">Submit</button>
+                <button type="submit" className="submit-button">Add</button>
             </form>
         </div>
     );
