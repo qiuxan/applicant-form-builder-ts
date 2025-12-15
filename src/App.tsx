@@ -8,7 +8,7 @@ function App() {
   const [applicants, setApplicants] = useState<Applicant[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
-  const handleAddApplicant = (applicant: Omit<Applicant, 'id'>) => {
+  const handleAddApplicant = (applicant: Omit<Applicant, 'id' | 'isPrimary'>) => {
     // Clear any previous error
     setErrorMessage('');
 
@@ -34,15 +34,24 @@ function App() {
     }
 
     // Add applicant with generated ID if both email and mobile are unique
+    // First applicant becomes primary by default
     const newApplicant: Applicant = {
       ...applicant,
-      id: crypto.randomUUID()
+      id: crypto.randomUUID(),
+      isPrimary: applicants.length === 0
     };
     setApplicants([...applicants, newApplicant]);
   };
 
   const handleRemoveApplicant = (id: string) => {
     setApplicants(applicants.filter(applicant => applicant.id !== id));
+  };
+
+  const handleSetPrimary = (id: string) => {
+    setApplicants(applicants.map(applicant => ({
+      ...applicant,
+      isPrimary: applicant.id === id
+    })));
   };
 
   const clearError = () => {
@@ -52,7 +61,7 @@ function App() {
   return (
     <>
       <h1>Applicant Form Builder</h1>
-      <UsersTable applicants={applicants} onRemove={handleRemoveApplicant} />
+      <UsersTable applicants={applicants} onRemove={handleRemoveApplicant} onSetPrimary={handleSetPrimary} />
       {errorMessage && (
         <div style={{
           maxWidth: '500px',

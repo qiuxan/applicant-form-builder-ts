@@ -22,6 +22,13 @@ This application is built to meet the following specifications:
 - **Mobile numbers must be unique**: No two applicants can have the same mobile number (normalized comparison, ignoring formatting characters)
 - **Australian mobile format**: Mobile numbers must follow Australian format (04XX XXX XXX or +61 4XX XXX XXX)
 
+### Primary Applicant Rules Assumption
+- **First applicant is primary**: The first applicant added automatically becomes the primary applicant
+- **Single primary only**: Only one applicant can be primary at any time
+- **Primary swap**: Clicking another applicant's checkbox automatically transfers primary status to that applicant
+- **Primary cannot be removed**: The primary applicant's remove button is disabled with a grayed-out appearance
+- **Tooltip on hover**: Hovering over a disabled remove button displays "Cannot remove the primary applicant"
+
 ## Tech Stack
 
 - React

@@ -5,7 +5,6 @@
     background: #ffffff;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow-x: auto;
 }
 
 .users-table {
@@ -52,6 +51,11 @@
     color: #333;
 }
 
+.remove-button-container {
+    position: relative;
+    display: inline-block;
+}
+
 .remove-button {
     padding: 0.5rem 1rem;
     background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
@@ -71,4 +75,49 @@
 
 .remove-button:active {
     transform: translateY(0);
+}
+
+.remove-button.disabled {
+    background: linear-gradient(135deg, #ccc 0%, #999 100%);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.remove-button.disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.tooltip {
+    visibility: hidden;
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+}
+
+.remove-button-container:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
 }

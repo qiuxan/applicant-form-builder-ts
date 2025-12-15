@@ -279,3 +279,84 @@ email and mobile should be unique is an assumption, update it in the README.MD"
 - **React Keys**: Using unique IDs as keys improves rendering performance
 - **Type Safety**: TypeScript ensures ID is always present when needed
 - **State Update**: Immutable array filtering creates new state reference
+
+---
+
+## Date: December 15, 2025
+
+### Prompt 10:
+"Include a checkbox to nominate the primary applicant
+Ensure there is always one, and only one, primary applicant 
+
+-- add  the first user and they user will become the primary applicant (add this to readme Assumption section)
+
+-- clicking other users's checkebox will swap primary applicant"
+
+### Changes Made:
+1. Updated `UsersTable/index.tsx`:
+   - Added `isPrimary: boolean` field to `Applicant` interface
+   - Added `onSetPrimary: (id: string) => void` prop to `UsersTableProps`
+   - Added "Primary" column to table header
+   - Added checkbox input in first column for each applicant row
+   - Checkbox is checked when `applicant.isPrimary` is true
+   - Checkbox onChange calls `onSetPrimary(applicant.id)` to swap primary status
+   - Styled checkbox with cursor pointer and larger size (20x20px)
+
+2. Updated `App.tsx`:
+   - Modified `handleAddApplicant` to accept `Omit<Applicant, 'id' | 'isPrimary'>`
+   - Set `isPrimary: applicants.length === 0` when creating new applicant (first user is primary)
+   - Created `handleSetPrimary` function that maps through applicants and sets `isPrimary` to true only for the selected ID
+   - Passed `handleSetPrimary` to UsersTable as `onSetPrimary` prop
+
+3. Updated `README.md`:
+   - Added new section "Primary Applicant Rules" under assumptions
+   - Documented that first applicant automatically becomes primary
+   - Documented single primary constraint
+   - Documented checkbox swap behavior
+
+### Primary Applicant Logic:
+- **First User Default**: When `applicants.length === 0`, new applicant gets `isPrimary: true`
+- **Single Primary Enforcement**: `handleSetPrimary` sets all applicants to `isPrimary: false` except the selected one
+- **Swap Mechanism**: Clicking any checkbox transfers primary status to that applicant
+- **Visual Indicator**: Checkbox shows checked state for primary applicant
+- **Always One Primary**: System ensures exactly one primary applicant at all times
+
+---
+
+## Date: December 15, 2025
+
+### Prompt 11:
+"primary applicant cannot be removed and its remove btn will become disable (both function and color) (add this to readme) . 
+
+when a disabled remove btn being hover. a little message will float up saying 'Cannot remove the primary applicant'"
+
+### Changes Made:
+1. Updated `UsersTable/index.tsx`:
+   - Wrapped remove button in a `remove-button-container` div for tooltip positioning
+   - Added conditional `disabled` class to remove button when `applicant.isPrimary` is true
+   - Added `disabled` attribute to button when primary
+   - Modified onClick to check `!applicant.isPrimary` before calling onRemove
+   - Added conditional tooltip span that displays only when `applicant.isPrimary` is true
+   - Tooltip text: "Cannot remove the primary applicant"
+
+2. Updated `UsersTable.css`:
+   - Added `.remove-button-container` with relative positioning for tooltip
+   - Added `.remove-button.disabled` style with gray gradient and reduced opacity
+   - Disabled button has `cursor: not-allowed` and no hover effects
+   - Added `.tooltip` styling with absolute positioning above button
+   - Tooltip positioned with `bottom: 125%` and centered with transform
+   - Added tooltip arrow using `::after` pseudo-element
+   - Tooltip visibility controlled by hovering over container
+   - Smooth fade-in transition for tooltip appearance
+
+3. Updated `README.md`:
+   - Added "Primary cannot be removed" rule to Primary Applicant Rules section
+   - Added "Tooltip on hover" description explaining the disabled state message
+
+### UI/UX Features:
+- **Visual Distinction**: Disabled button has gray gradient instead of red
+- **Cursor Feedback**: Changes to not-allowed cursor on disabled button
+- **Hover Tooltip**: Appears above button on hover with explanation
+- **Tooltip Arrow**: Points down to the button for clear association
+- **Smooth Animation**: Fade-in effect for professional appearance
+- **Functional Prevention**: onClick handler checks isPrimary before executing
