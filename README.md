@@ -17,6 +17,11 @@ This application is built to meet the following specifications:
 - Include a checkbox to nominate the primary applicant
 - Ensure there is always one, and only one, primary applicant
 
+### Data Validation Rules Assumption
+- **Email addresses must be unique**: No two applicants can have the same email address (case-insensitive)
+- **Mobile numbers must be unique**: No two applicants can have the same mobile number (normalized comparison, ignoring formatting characters)
+- **Australian mobile format**: Mobile numbers must follow Australian format (04XX XXX XXX or +61 4XX XXX XXX)
+
 ## Tech Stack
 
 - React

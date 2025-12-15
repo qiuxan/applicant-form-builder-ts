@@ -174,3 +174,108 @@ Use react-final-form to handle the form varify and error message"
 - Domestic: 10 digits total (e.g., 0412 345 678, 0423-456-789)
 - International: 11 digits total with country code (e.g., +61 412 345 678)
 - Formatting characters (spaces, hyphens, parentheses) are allowed but ignored during validation
+
+---
+
+## Date: December 15, 2025
+
+### Prompt 6:
+"make a seperate function out of it and make sure email and mobile should be unique
+
+email and mobile should be unique is an assumption, update it in the README.MD"
+
+### Changes Made:
+1. Updated `App.tsx`:
+   - Created `handleAddApplicant` function to replace inline lambda
+   - Added email uniqueness check (case-insensitive comparison)
+   - Added mobile uniqueness check (normalized by removing non-digit characters)
+   - Shows alert messages when duplicate email or mobile is detected
+   - Only adds applicant if both email and mobile are unique
+
+2. Updated `README.md`:
+   - Added new section "Data Validation Rules"
+   - Documented email uniqueness requirement (case-insensitive)
+   - Documented mobile uniqueness requirement (normalized comparison)
+   - Documented Australian mobile format requirement
+
+### Validation Logic:
+- **Email Uniqueness**: Converts to lowercase for comparison to prevent case-sensitive duplicates
+- **Mobile Uniqueness**: Strips all non-digit characters before comparison (e.g., "0412 345 678" and "0412-345-678" are treated as the same)
+- **User Feedback**: Alert dialogs inform users when they attempt to add duplicate data
+- **Prevents Addition**: Duplicate applicants are not added to the list
+
+---
+
+## Date: December 15, 2025
+
+### Prompt 7:
+"make error message in the App.tsx instead of alert"
+
+### Changes Made:
+1. Updated `App.tsx`:
+   - Added `errorMessage` state to store error messages
+   - Replaced `alert()` calls with `setErrorMessage()` 
+   - Added error message display component with styled div
+   - Error message appears between title and form with red styling
+   - Reordered components: form appears before table
+   - Error clears automatically on next submission attempt
+
+### Error Message Styling:
+- Max-width: 500px (matches form width)
+- Light red background (#fee)
+- Red border (#ff6b6b)
+- Rounded corners (8px)
+- Bold red text (#c92a2a)
+- Appears inline above the form
+
+---
+
+## Date: December 15, 2025
+
+### Prompt 8:
+"If any filed of the ApplicationForm Focused, the error message will disappear"
+
+### Changes Made:
+1. Updated `App.tsx`:
+   - Created `clearError` function to reset error message state
+   - Passed `onFieldFocus` callback prop to ApplicantForm component
+
+2. Updated `ApplicantForm/index.tsx`:
+   - Added optional `onFieldFocus` prop to component interface
+   - Added custom `onFocus` handlers to all four input fields (firstName, lastName, mobile, email)
+   - Each handler calls both the field's original `onFocus` and the `onFieldFocus` callback
+   - Used optional chaining (`?.()`) to safely call callback
+
+### User Experience Improvement:
+- Error message clears immediately when user focuses any form field
+- Provides instant feedback that user is taking corrective action
+- Reduces visual clutter while user is editing
+- Works with all four form fields consistently
+
+---
+
+## Date: December 15, 2025
+
+### Prompt 9:
+"make the remove btn work!"
+
+### Changes Made:
+1. Updated `UsersTable/index.tsx`:
+   - Added `id: string` field to `Applicant` interface
+   - Added `onRemove: (id: string) => void` prop to `UsersTableProps` interface
+   - Changed map key from array index to `applicant.id` for proper React reconciliation
+   - Added `onClick` handler to Remove button that calls `onRemove(applicant.id)`
+   - Updated component signature to accept `onRemove` prop
+
+2. Updated `App.tsx`:
+   - Modified `handleAddApplicant` to accept `Omit<Applicant, 'id'>` (applicant without id)
+   - Added unique ID generation using `crypto.randomUUID()` when creating new applicants
+   - Created `handleRemoveApplicant` function that filters applicants by ID
+   - Passed `handleRemoveApplicant` as `onRemove` prop to UsersTable component
+
+### Implementation Details:
+- **Unique IDs**: Each applicant gets a UUID generated with `crypto.randomUUID()`
+- **Remove Logic**: Filters the applicants array to exclude the matching ID
+- **React Keys**: Using unique IDs as keys improves rendering performance
+- **Type Safety**: TypeScript ensures ID is always present when needed
+- **State Update**: Immutable array filtering creates new state reference

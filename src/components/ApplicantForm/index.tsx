@@ -45,9 +45,16 @@ const validate = (values: FormValues) => {
     return errors;
 };
 
-const ApplicantForm = () => {
+const ApplicantForm = ({ 
+    onAddApplicant, 
+    onFieldFocus 
+}: { 
+    onAddApplicant: (applicant: FormValues) => void;
+    onFieldFocus?: () => void;
+}) => {
     const onSubmit = (values: FormValues) => {
         console.log('Form submitted:', values);
+        onAddApplicant(values);
         // Handle form submission here
     };
 
@@ -67,6 +74,10 @@ const ApplicantForm = () => {
                                         type="text" 
                                         id="firstName"
                                         placeholder="Enter first name"
+                                        onFocus={(e) => {
+                                            input.onFocus(e);
+                                            onFieldFocus?.();
+                                        }}
                                     />
                                     {meta.error && meta.touched && (
                                         <span className="error-message">{meta.error}</span>
@@ -84,6 +95,10 @@ const ApplicantForm = () => {
                                         type="text" 
                                         id="lastName"
                                         placeholder="Enter last name"
+                                        onFocus={(e) => {
+                                            input.onFocus(e);
+                                            onFieldFocus?.();
+                                        }}
                                     />
                                     {meta.error && meta.touched && (
                                         <span className="error-message">{meta.error}</span>
@@ -101,6 +116,10 @@ const ApplicantForm = () => {
                                         type="tel" 
                                         id="mobile"
                                         placeholder="Enter mobile number"
+                                        onFocus={(e) => {
+                                            input.onFocus(e);
+                                            onFieldFocus?.();
+                                        }}
                                     />
                                     {meta.error && meta.touched && (
                                         <span className="error-message">{meta.error}</span>
@@ -118,6 +137,10 @@ const ApplicantForm = () => {
                                         type="email" 
                                         id="email"
                                         placeholder="Enter email address"
+                                        onFocus={(e) => {
+                                            input.onFocus(e);
+                                            onFieldFocus?.();
+                                        }}
                                     />
                                     {meta.error && meta.touched && (
                                         <span className="error-message">{meta.error}</span>
